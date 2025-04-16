@@ -16,6 +16,12 @@ export default function HomePage() {
               <Link href="/dashboard" className="transition-colors hover:text-foreground/80 text-muted-foreground">
                 Dashboard
               </Link>
+              <Link href="/privacy" className="transition-colors hover:text-foreground/80 text-muted-foreground">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="transition-colors hover:text-foreground/80 text-muted-foreground">
+                Terms and Condition
+              </Link>
             </nav>
           </div>
         </div>
@@ -34,7 +40,9 @@ export default function HomePage() {
                 </p>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                    View Dashboard
+                    <Link href="/dashboard" className="w-full">
+                      View Dashboard
+                    </Link>
                   </Button>
                 </div>
               </div>
