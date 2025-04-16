@@ -69,20 +69,6 @@ export default function DashboardPage() {
         <div className="container flex h-16 items-center">
           <h1 className="text-xl font-bold">Smart City Transportation Dashboard</h1>
           <div className="ml-auto flex items-center space-x-4">
-            <Select defaultValue="downtown">
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select area" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="downtown">Downtown</SelectItem>
-                <SelectItem value="northside">North Side</SelectItem>
-                <SelectItem value="eastside">East Side</SelectItem>
-                <SelectItem value="westside">West Side</SelectItem>
-                <SelectItem value="southside">South Side</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button variant="outline">Export Data</Button>
-            <Button>Settings</Button>
           </div>
         </div>
       </header>
@@ -90,26 +76,6 @@ export default function DashboardPage() {
         <div className="container">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">Traffic Analytics</h2>
-            <div className="flex items-center space-x-2">
-              <Button
-                variant={selectedTimeframe === "today" ? "default" : "outline"}
-                onClick={() => setSelectedTimeframe("today")}
-              >
-                Today
-              </Button>
-              <Button
-                variant={selectedTimeframe === "week" ? "default" : "outline"}
-                onClick={() => setSelectedTimeframe("week")}
-              >
-                This Week
-              </Button>
-              <Button
-                variant={selectedTimeframe === "month" ? "default" : "outline"}
-                onClick={() => setSelectedTimeframe("month")}
-              >
-                This Month
-              </Button>
-            </div>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-6">
@@ -278,13 +244,12 @@ export default function DashboardPage() {
                         <div className="col-span-3">
                           <div className="w-full bg-gray-200 rounded-full h-2.5">
                             <div
-                              className={`h-2.5 rounded-full ${
-                                hotspot.congestion > 70
-                                  ? "bg-red-600"
-                                  : hotspot.congestion > 50
-                                    ? "bg-yellow-400"
-                                    : "bg-green-500"
-                              }`}
+                              className={`h-2.5 rounded-full ${hotspot.congestion > 70
+                                ? "bg-red-600"
+                                : hotspot.congestion > 50
+                                  ? "bg-yellow-400"
+                                  : "bg-green-500"
+                                }`}
                               style={{ width: `${hotspot.congestion}%` }}
                             ></div>
                           </div>
@@ -292,13 +257,12 @@ export default function DashboardPage() {
                         </div>
                         <div className="col-span-2">
                           <span
-                            className={`px-2 py-1 rounded-full text-xs ${
-                              hotspot.trend === "increasing"
-                                ? "bg-red-100 text-red-800"
-                                : hotspot.trend === "decreasing"
-                                  ? "bg-green-100 text-green-800"
-                                  : "bg-yellow-100 text-yellow-800"
-                            }`}
+                            className={`px-2 py-1 rounded-full text-xs ${hotspot.trend === "increasing"
+                              ? "bg-red-100 text-red-800"
+                              : hotspot.trend === "decreasing"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-yellow-100 text-yellow-800"
+                              }`}
                           >
                             {hotspot.trend}
                           </span>

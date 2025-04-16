@@ -16,17 +16,7 @@ export default function HomePage() {
               <Link href="/dashboard" className="transition-colors hover:text-foreground/80 text-muted-foreground">
                 Dashboard
               </Link>
-              <Link href="/commuter" className="transition-colors hover:text-foreground/80 text-muted-foreground">
-                Commuter App
-              </Link>
-              <Link href="/about" className="transition-colors hover:text-foreground/80 text-muted-foreground">
-                About
-              </Link>
             </nav>
-          </div>
-          <div className="flex flex-1 items-center justify-end space-x-4">
-            <Button variant="outline">Login</Button>
-            <Button>Sign Up</Button>
           </div>
         </div>
       </header>
@@ -36,7 +26,7 @@ export default function HomePage() {
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="space-y-4">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  AI-Powered Transportation for Smarter Cities
+                  Transportation for Smarter Cities
                 </h1>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Reducing congestion, optimizing routes, and decreasing carbon emissions through intelligent traffic
@@ -46,9 +36,6 @@ export default function HomePage() {
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
                     View Dashboard
                   </Button>
-                  <Button size="lg" variant="outline">
-                    Commuter App
-                  </Button>
                 </div>
               </div>
               <div className="mx-auto lg:mr-0 lg:ml-auto">
@@ -56,7 +43,7 @@ export default function HomePage() {
                   <img
                     alt="Smart city traffic visualization"
                     className="object-cover w-full h-full"
-                    src="/placeholder.svg?height=500&width=800"
+                    src="https://i.pinimg.com/736x/23/ea/03/23ea035237148ce7d83cfbac46e5d2e6.jpg?height=500&width=800"
                   />
                 </div>
               </div>
