@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { prisma } from '@/lib/prisma'
 
 // This would be replaced with actual ML model predictions in production
 async function predictTrafficFlow(area: string, time: string) {
@@ -52,13 +53,84 @@ function generateRecommendations(congestionLevel: number) {
   }
 }
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const area = searchParams.get("area") || "downtown"
-  const time = searchParams.get("time") || "morning"
+// GET /api/traffic
+export async function GET() {
+  try {
+    const trafficData = await prisma.trafficData.findMany({
+      orderBy: {
+        timestamp: 'desc'
+      },
+      take: 100
+    })
+    return NextResponse.json(trafficData)
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to fetch traffic data' }, { status: 500 })
+  }
+}
 
-  const trafficData = await predictTrafficFlow(area, time)
+// POST /api/traffic
+export async function POST(request: Request) {
+  try {
+    const body = await request.json()
+    const trafficData = await prisma.trafficData.create({
+      data: {
+        location: body.location,
+        vehicleType: body.vehicleType,
+        count: body.count,
+        speed: body.speed,
+        congestion: body.congestion
+      }
+    })
+    return NextResponse.json(trafficData)
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to create traffic data' }, { status: 500 })
+  }
+}
 
-  return NextResponse.json(trafficData)
+// PUT /api/traffic
+export async function PUT(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+    const body = await request.json()
+
+    if (!id) {
+      return NextResponse.json({ error: 'Traffic data ID is required' }, { status: 400 })
+    }
+
+    const trafficData = await prisma.trafficData.update({
+      where: { id: parseInt(id) },
+      data: {
+        location: body.location,
+        vehicleType: body.vehicleType,
+        count: body.count,
+        speed: body.speed,
+        congestion: body.congestion
+      }
+    })
+    return NextResponse.json(trafficData)
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to update traffic data' }, { status: 500 })
+  }
+}
+
+// DELETE /api/traffic
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+
+    if (!id) {
+      return NextResponse.json({ error: 'Traffic data ID is required' }, { status: 400 })
+    }
+
+    await prisma.trafficData.delete({
+      where: { id: parseInt(id) }
+    })
+
+    return NextResponse.json({ message: 'Traffic data deleted successfully' })
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to delete traffic data' }, { status: 500 })
+  }
 }
 

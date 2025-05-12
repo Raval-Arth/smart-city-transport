@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TrafficData {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  location    String
+  vehicleType String
+  count       Int
+  speed       Float?
+  congestion  Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model TrafficFlow {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  location    String
+  flowRate    Float    // vehicles per hour
+  direction   String   // e.g., "northbound", "southbound"
+  laneCount   Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model EmissionData {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  location    String
+  co2Level    Float    // in ppm
+  noxLevel    Float    // in ppm
+  pmLevel     Float    // particulate matter in μg/m³
+  vehicleType String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model TransportMode {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  location    String
+  mode        String   // e.g., "bus", "car", "bicycle", "pedestrian"
+  count       Int
+  percentage  Float    // percentage of total transport
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CongestionHotspot {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  location    String
+  severity    String   // e.g., "LOW", "MEDIUM", "HIGH"
+  duration    Int      // in minutes
+  cause       String?  // e.g., "ACCIDENT", "CONSTRUCTION", "EVENT"
+  status      String   @default("ACTIVE") // e.g., "ACTIVE", "RESOLVED"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model TrafficAlert {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  location    String
+  type        String   // e.g., "ACCIDENT", "CONGESTION", "ROAD_CLOSURE"
+  severity    String   // e.g., "LOW", "MEDIUM", "HIGH"
+  description String?
+  status      String   @default("ACTIVE") // e.g., "ACTIVE", "RESOLVED"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model TrafficPrediction {
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  location    String
+  predictedCount Int
+  confidence  Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+} 
